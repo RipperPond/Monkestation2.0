@@ -71,11 +71,13 @@
 	ADD_TRAIT(current_mob, TRAIT_BATON_RESISTANCE, "slasher")
 	ADD_TRAIT(current_mob, TRAIT_CLUMSY, "slasher")
 	ADD_TRAIT(current_mob, TRAIT_DUMB, "slasher")
-	ADD_TRAIT(current_mob, TRAIT_NODEATH, "slasher")
+	ADD_TRAIT(current_mob, TRAIT_BOMBIMMUNE, "slasher")
 	ADD_TRAIT(current_mob, TRAIT_LIMBATTACHMENT, "slasher")
 	ADD_TRAIT(current_mob, TRAIT_SLASHER, "slasher")
 	ADD_TRAIT(current_mob, TRAIT_NO_PAIN_EFFECTS, "slasher")
 	ADD_TRAIT(current_mob, TRAIT_VIRUSIMMUNE, "slasher")
+	ADD_TRAIT(current_mob, TRAIT_NO_ORGAN_DECAY, "slasher")
+	ADD_TRAIT(current_mob, TRAIT_NO_MIRROR_REFLECTION, "slasher")
 
 	var/mob/living/carbon/carbon = current_mob
 	var/obj/item/organ/internal/eyes/shadow/shadow = new
@@ -85,7 +87,6 @@
 	RegisterSignal(current_mob, COMSIG_LIVING_PICKED_UP_ITEM, PROC_REF(item_pickup))
 	RegisterSignal(current_mob, COMSIG_MOB_DROPPING_ITEM, PROC_REF(item_drop))
 	RegisterSignal(current_mob, COMSIG_MOB_ITEM_ATTACK, PROC_REF(check_attack))
-	RegisterSignal(current_mob, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 	for(var/datum/quirk/quirk as anything in current_mob.quirks)
 		current_mob.remove_quirk(quirk)
 	///abilities galore
@@ -98,10 +99,6 @@
 	if(istype(human))
 		human.equipOutfit(/datum/outfit/slasher)
 	cached_brute_mod = human.dna.species.brutemod
-
-/datum/antagonist/slasher/proc/on_death(mob/living/source)
-	SIGNAL_HANDLER
-	source.mind.remove_antag_datum(/datum/antagonist/slasher)
 
 /datum/antagonist/slasher/on_removal()
 	. = ..()

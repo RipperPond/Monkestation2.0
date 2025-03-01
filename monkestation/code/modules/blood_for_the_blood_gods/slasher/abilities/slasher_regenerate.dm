@@ -1,6 +1,6 @@
 /datum/action/cooldown/slasher/regenerate
 	name = "Regenerate"
-	desc = "Quickly regenerate your being, restoring most if not all lost health, repairing wounds, and removing all stuns."
+	desc = "Quickly regenerate your being, restoring most if not all lost health, repairing wounds, and removing all stuns. Addtionally if you are dead it may revive you, however your body must repair itself first"
 
 	button_icon_state = "regenerate"
 
@@ -35,7 +35,7 @@
 /datum/status_effect/bloody_heal/tick(seconds_per_tick, times_fired)
 	. = ..()
 	if(!ishuman(owner))
-		return
+		owner.lazarus_revive(owner)
 	var/mob/living/carbon/human/human_owner = owner
 	human_owner.AdjustAllImmobility(-20 * seconds_per_tick)
 	human_owner.stamina.adjust(20, TRUE)
@@ -45,7 +45,10 @@
 	human_owner.adjustToxLoss(-20)
 	human_owner.adjustCloneLoss(-20)
 	human_owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, -20)
+	human_owner.cure_all_traumas()
 	human_owner.blood_volume = BLOOD_VOLUME_NORMAL
+	human_owner.revive(1,1)
+
 
 	if(human_owner.all_wounds)
 		var/datum/wound/picked_wound = pick(human_owner.all_wounds)
@@ -58,3 +61,5 @@
 	for(var/i in human_owner.all_wounds)
 		var/datum/wound/iter_wound = i
 		iter_wound.on_xadone(4 * REM * seconds_per_tick) // plasmamen use plasma to reform their bones or whatever
+
+
