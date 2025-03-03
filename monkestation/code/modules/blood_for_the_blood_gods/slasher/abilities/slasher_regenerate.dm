@@ -34,21 +34,23 @@
 
 /datum/status_effect/bloody_heal/tick(seconds_per_tick, times_fired)
 	. = ..()
+	var/mob/living/carbon/human/human_owner = owner
 	if(!ishuman(owner))
 		owner.lazarus_revive(owner)
-	var/mob/living/carbon/human/human_owner = owner
 	human_owner.AdjustAllImmobility(-20 * seconds_per_tick)
-	human_owner.stamina.adjust(20, TRUE)
-	human_owner.adjustBruteLoss(-35)
-	human_owner.adjustFireLoss(-20, FALSE)
+	human_owner.heal_overall_damage(25, 25, 20)
 	human_owner.adjustOxyLoss(-20)
 	human_owner.adjustToxLoss(-20)
 	human_owner.adjustCloneLoss(-20)
 	human_owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, -20)
 	human_owner.cure_all_traumas()
 	human_owner.blood_volume = BLOOD_VOLUME_NORMAL
-	human_owner.revive(1,1)
+	var/mob/living/carbon/getBruteLoss() = bruteDMG
+	var/mob/living/carbon/getFireLoss() = fireDMG
 
+	if(bruteDMG >= 25 && fireDMG >= 25)
+		human_owner.revive(1,1)
+		human_owner.cure_husk()
 
 	if(human_owner.all_wounds)
 		var/datum/wound/picked_wound = pick(human_owner.all_wounds)
