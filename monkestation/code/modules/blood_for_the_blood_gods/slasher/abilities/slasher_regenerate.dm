@@ -45,12 +45,11 @@
 	human_owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, -20)
 	human_owner.cure_all_traumas()
 	human_owner.blood_volume = BLOOD_VOLUME_NORMAL
-	var/mob/living/carbon/getBruteLoss() = bruteDMG
-	var/mob/living/carbon/getFireLoss() = fireDMG
+	human_owner.revive(1,1)
+	human_owner.cure_husk()
 
-	if(bruteDMG >= 25 && fireDMG >= 25)
-		human_owner.revive(1,1)
-		human_owner.cure_husk()
+	// if(bruteDMG >= 25 && fireDMG >= 25)
+
 
 	if(human_owner.all_wounds)
 		var/datum/wound/picked_wound = pick(human_owner.all_wounds)

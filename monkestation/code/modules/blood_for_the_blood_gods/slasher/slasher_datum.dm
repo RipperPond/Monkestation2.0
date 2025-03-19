@@ -79,6 +79,9 @@
 	ADD_TRAIT(current_mob, TRAIT_NO_ORGAN_DECAY, "slasher")
 	ADD_TRAIT(current_mob, TRAIT_NO_MIRROR_REFLECTION, "slasher")
 
+	var/obj/item/organ/internal/brain/brain = current_mob.get_organ_slot(ORGAN_SLOT_BRAIN)
+	brain.organ_flags &= ~ORGAN_VITAL
+
 	var/mob/living/carbon/carbon = current_mob
 	var/obj/item/organ/internal/eyes/shadow/shadow = new
 	shadow.Insert(carbon, drop_if_replaced = FALSE)
