@@ -75,9 +75,9 @@
 	ADD_TRAIT(current_mob, TRAIT_LIMBATTACHMENT, "slasher")
 	ADD_TRAIT(current_mob, TRAIT_SLASHER, "slasher")
 	ADD_TRAIT(current_mob, TRAIT_NO_PAIN_EFFECTS, "slasher")
-	ADD_TRAIT(current_mob, TRAIT_VIRUSIMMUNE, "slasher")
 	ADD_TRAIT(current_mob, TRAIT_NO_ORGAN_DECAY, "slasher")
 	ADD_TRAIT(current_mob, TRAIT_NO_MIRROR_REFLECTION, "slasher")
+	ADD_TRAIT(current_mob, TRAIT_REVIVES_BY_HEALING, "The Eternal Slasher")
 
 	var/obj/item/organ/internal/brain/brain = current_mob.get_organ_slot(ORGAN_SLOT_BRAIN)
 	brain.organ_flags &= ~ORGAN_VITAL

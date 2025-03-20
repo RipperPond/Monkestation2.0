@@ -42,12 +42,11 @@
 	human_owner.adjustOxyLoss(-20)
 	human_owner.adjustToxLoss(-20)
 	human_owner.adjustCloneLoss(-20)
-	human_owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, -20)
+	human_owner.regenerate_organs()
 	human_owner.cure_all_traumas()
 	human_owner.blood_volume = BLOOD_VOLUME_NORMAL
-	human_owner.revive(1,1)
 	human_owner.cure_husk()
-
+	human_owner.regenerate_limbs(list(ARM_LEFT, LEG_LEFT, LEG_RIGHT))
 	// if(bruteDMG >= 25 && fireDMG >= 25)
 
 
